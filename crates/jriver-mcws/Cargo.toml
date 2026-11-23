@@ -1,0 +1,22 @@
+[package]
+name = "jriver-mcws"
+description = "MCWS client and player for JRiver Media Center (jriver-cast-bridge)"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[dependencies]
+log = "0.4"
+percent-encoding = "2.3.2"
+reqwest = { version = "0.13.3", default-features = false }
+roxmltree = "0.20"
+thiserror = "2.0.18"
+tokio = { version = "1.52.3", features = ["time", "sync"] }
+
+[dev-dependencies]
+tokio = { version = "1.52.3", features = ["macros", "rt-multi-thread", "time", "test-util", "net", "io-util"] }
+
+[lints]
+workspace = true

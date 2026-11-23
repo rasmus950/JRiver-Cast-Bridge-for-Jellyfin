@@ -1,0 +1,62 @@
+# jriver-cast-bridge configuration.
+# Copy to %APPDATA%\jriver-cast-bridge\config.toml and adjust.
+# Never put the Jellyfin token here; it lives in Windows Credential Manager.
+# The bridge asks for the login itself (Log in… in the tray menu).
+
+[jellyfin]
+url = "http://jellyfin.local:8096"
+# The name in Jellyfin's cast menu.
+device_name = "JRiver (HTPC)"
+# Names the saved login in Credential Manager (a test setup uses its own).
+profile = "default"
+
+# [bridge]
+# poll_interval_ms = 1000    # JRiver status poll while playing
+# progress_interval_s = 10   # progress report to Jellyfin while playing
+# minimize_after_playback = true  # minimize MC when a full-screen film ends
+# tracks_from_jellyfin = true   # play the audio/subtitle tracks picked in Jellyfin;
+#                               # false: Media Center picks them, and Jellyfin
+#                               # offers no track choice when casting here
+
+# Jellyfin Media Player on this HTPC: the bridge starts it once it is a cast
+# target, so JMP's autocast finds it. Remove JMP's own Startup shortcut.
+# [jellyfin_player]
+# start = true
+# exe_path = 'C:\Program Files\Jellyfin\Jellyfin Media Player\JellyfinMediaPlayer.exe'
+
+# Restarting a hung MC: Windows says "Not responding" this long while MC
+# doesn't answer. Windows itself says so only after 5 s without an answer.
+# [watchdog]
+# hang_after_s = 3               # seconds, normally
+# hang_while_starting_s = 20     # seconds, while a cast opens a file (NAS spin-up)
+# max_restarts_per_hour = 3      # 0: never restart MC
+
+[log]
+# error, warn, info or debug (debug logs every MCWS and Jellyfin call).
+# Files: %APPDATA%\jriver-cast-bridge\logs
+level = "info"
+keep_days = 14
+
+[mcws]
+# MC → Options → Media Network must be enabled.
+url = "http://localhost:52199/MCWS/v1/"
+# 0 is MC's local "Player" zone. Never -1 (that follows MC's current zone,
+# which can be a DLNA renderer).
+zone_id = 0
+timeout_ms = 5000
+# Start MC when a cast arrives and MC isn't running. Remove to never start it.
+exe_path = 'C:\Program Files\J River\Media Center 36\Media Center 36.exe'
+# Only if Media Network authentication is turned on in MC. The password is
+# kept in Windows Credential Manager, never here: set it in Settings.
+# username = "..."
+
+# Server path (as Jellyfin reports it) → UNC path the HTPC opens.
+# Ordered; the first match wins. UNC only: MC imports every file it plays,
+# and a drive-letter path would create a second library entry.
+[[path_map]]
+from = '/media/movies'
+to   = '\\nas\movies'
+
+[[path_map]]
+from = '/media/tv'
+to   = '\\nas\tv'

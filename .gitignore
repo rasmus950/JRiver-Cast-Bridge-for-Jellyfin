@@ -1,0 +1,30 @@
+# Local
+.DS_Store
+*.local
+*.log*
+.env
+.env.*
+!.env.example
+
+# Build output
+/target/
+
+# IDE
+.vscode/
+.idea
+
+# Temp
+*.tmp
+.artifacts/
+
+# Agent tooling (local)
+.agents/
+.codex
+.pi
+.omp/
+.serena/
+.codegraph/
+
+# Test settings (secrets) and review diffs
+tests/integration/test.env
+.review/

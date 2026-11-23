@@ -1,0 +1,7 @@
+# Build output in the repository-root target/ directory, where the installer
+# script (installer/build.ps1) looks for the release binaries.
+[build]
+target-dir = "target"
+
+[alias]
+xtask = "run --package xtask --"

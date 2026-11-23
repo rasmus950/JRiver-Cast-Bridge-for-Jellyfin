@@ -1,0 +1,5 @@
+disallowed-methods = [
+  { path = "std::env::set_var", reason = "Process-global env mutation races across threads and parallel tests; pass configuration explicitly or set it on a child std::process::Command (see xtask/src/rust.rs)." },
+  { path = "std::env::remove_var", reason = "Process-global env mutation races across threads and parallel tests; pass configuration explicitly or set it on a child std::process::Command (see xtask/src/rust.rs)." },
+  { path = "std::process::exit", reason = "std::process::exit skips Drop teardown (the playback report queue, the local pipe, the tray, the single-instance lock); return an ExitCode from main or shut down through the event loop." },
+]
